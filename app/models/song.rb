@@ -8,7 +8,7 @@ class Song < ActiveRecord::Base
   end
 
   def genre_name
-      self.genre.name
+    genre.name
    end
 
   def artist_name=(name)
@@ -16,19 +16,16 @@ class Song < ActiveRecord::Base
   end
 
   def artist_name
-    self.artist.name
+    artist.name
   end
 
   def note_contents=(content)
-   content.each do |e|
-     if !e.empty?
-       self.notes << Note.create(content: e)
-     end
-   end
+    content.each do |e|
+      notes << Note.create(content: e) unless e.empty?
+    end
  end
 
- def note_contents
-   self.notes.map {|e| e.content }
- end
-
+  def note_contents
+    notes.map(&:content)
+  end
 end
